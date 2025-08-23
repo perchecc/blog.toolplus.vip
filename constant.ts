@@ -15,7 +15,7 @@ export const quote =
   '听音乐，品人生'
 
 export const tooltip = {
-  content: '检测到页面内容有更新更新，是否刷新页面',
+  content: '检测到页面内容有更新，是否刷新页面',
   confirm: '是',
   cancel: '否',
 }
