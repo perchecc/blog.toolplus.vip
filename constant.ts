@@ -3,16 +3,16 @@ import type { PostModel } from './src/interfaces/post-model'
 
 // index
 
-export const site = 'https://astro-blog-ecru-phi.vercel.app'
+export const site = 'https://blog.toolplus.vip'
 
-export const title = 'didmax'
+export const title = '鲸鱼在游泳'
 
-export const description = '这是一个托管在 Cloudflare 上的个人博客，用于记录生活和技术笔记。'
+export const description = '这是“鲸鱼在游泳”的个人博客，记录技术提升和人生随想'
 
 export const avatar = avatarImg
 
 export const quote =
-  '我个人的一个秘密是在需要极大快乐和悲伤的公众场合却达不到这种快乐和悲伤应有的水平，因而内心惊恐万状，汗如雨下'
+  '听音乐，品人生'
 
 export const tooltip = {
   content: '检测到页面内容有更新更新，是否刷新页面',
