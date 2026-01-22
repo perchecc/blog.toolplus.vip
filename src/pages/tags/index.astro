@@ -1,39 +1,49 @@
 ---
-import NavHead from '@components/nav-header.astro'
-import BaseLayout from '@layouts/base-layout.astro'
-import { getAllPosts } from '@utils/all-posts'
+import { getBlogCollection, getUniqueTagsWithCount } from 'astro-pure/server'
+import { Button } from 'astro-pure/user'
+import { cn } from 'astro-pure/utils'
+import PageLayout from '@/layouts/BaseLayout.astro'
 
-const allPosts = await getAllPosts()
+const allPosts = await getBlogCollection()
+const allTags = getUniqueTagsWithCount(allPosts)
 
-const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())].filter((tag) => tag) as string[]
-const tagContent = uniqueTags.map((tag) => {
-  const tagPost = allPosts.filter((post) => post.data.tags && post.data.tags.includes(tag))
-
-  return {
-    tag,
-    count: tagPost.length,
-  }
-})
-
-const title = '标签'
-const description = '标签页面-didmax'
+const meta = {
+  description: "A list of all the topics I've written about in my posts",
+  title: 'All Tags'
+}
 ---
 
-<BaseLayout title={title} description={description}>
-  <NavHead />
-  <main>
-    <section class="grid grid-cols-3 gap-5 px-2 pb-5 pt-1 max-[768px]:grid-cols-2 min-[1500px]:grid-cols-4">
+<PageLayout {meta}>
+  <Button title='Back' href='/blog' variant='back' />
+  <main class='mt-6 lg:mt-10'>
+    <div id='content-header' class='animate'>
+      <h1 class='mb-6 text-3xl font-medium'>Tags</h1>
+    </div>
+
+    <div id='content' class='animate'>
       {
-        tagContent.map((item) => (
-          <a
-            href={'/tags/' + item.tag}
-            class="group flex justify-between gap-2 rounded-xl bg-gray-200 px-5 py-1 shadow-md dark:bg-[#5252527a]"
-          >
-            <span class="truncate">{item.tag}</span>
-            <span class="text-primary-dark dark:text-primary-light">{item.count}</span>
-          </a>
-        ))
+        allTags.length > 0 ? (
+          <ul class='flex flex-wrap gap-4'>
+            {allTags.map(([tag, val]) => (
+              <li>
+                <Button
+                  href={`/tags/${tag}`}
+                  variant='pill'
+                  class={cn(
+                    'items-start gap-x-1',
+                    val > 2 ? 'rounded-xl px-3 py-1 text-xl' : val > 1 && 'text-lg'
+                  )}
+                >
+                  {tag}
+                  <span class={val > 2 ? 'text-base' : 'text-xs'}>{val}</span>
+                </Button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Any tag yet.</p>
+        )
       }
-    </section>
+    </div>
   </main>
-</BaseLayout>
+</PageLayout>

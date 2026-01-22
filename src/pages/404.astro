@@ -1,20 +1,18 @@
 ---
-import AvatarImage from '@components/avatar-image.astro'
-import NavLink from '@components/nav-link.astro'
-import BaseLayout from '@layouts/base-layout.astro'
+import { Button } from 'astro-pure/user'
+import PageLayout from '@/layouts/BaseLayout.astro'
 
-const title = '404 Not Found'
-const description = '找不到页面-didmax'
+const meta = {
+  description: 'Not found',
+  title: '404'
+}
 ---
 
-<BaseLayout title={title} description={description}>
-  <main>
-    <section class="flex flex-col items-center justify-center">
-      <AvatarImage />
-    </section>
-    <section class="text-primary my-10 flex items-center justify-center gap-10">
-      <NavLink />
-    </section>
-    <section class="flex justify-center py-5 text-4xl">404</section>
-  </main>
-</BaseLayout>
+<PageLayout {meta}>
+  <div class='px-4 py-10 text-center sm:px-6 lg:px-8'>
+    <h1 class='block text-7xl font-bold sm:text-9xl'>404</h1>
+    <p class='mt-3 text-muted-foreground'>Oops, something went wrong.</p>
+    <p class='text-lg'>Sorry, we couldn't find your page.</p>
+    <Button title='Back to home' href='/' variant='ahead' class='mt-5' />
+  </div>
+</PageLayout>

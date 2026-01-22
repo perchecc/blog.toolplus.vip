@@ -1,21 +1,33 @@
 ---
-import NavHeader from '@components/nav-header.astro'
-import PagefindSearch from '@components/pagefind-search.astro'
-import BaseLayout from '@layouts/base-layout.astro'
+import { PFSearch } from 'astro-pure/components/pages'
+import { Button } from 'astro-pure/user'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import { integ } from '@/site-config'
+
+const meta = {
+  description: 'Search relative posts of the whole blog',
+  title: 'Search'
+}
 ---
 
-<BaseLayout title="搜索" description="search page">
-  <NavHeader />
-  <main class="flex flex-col justify-between overflow-hidden">
-    <PagefindSearch />
+<PageLayout {meta}>
+  <Button title='Back' href='/blog' variant='back' />
+  <main class='mt-6 lg:mt-10'>
+    <div id='content-header' class='animate'>
+      <h1 class='mb-6 text-3xl font-medium'>Search</h1>
+    </div>
+
+    <div id='content' class='animate'>
+      {
+        integ.pagefind ? (
+          <>
+            <p>Enter a search term or phrase to search the blog.</p>
+            <PFSearch />
+          </>
+        ) : (
+          <p>Pagefind is disabled.</p>
+        )
+      }
+    </div>
   </main>
-</BaseLayout>
-<style lang="less">
-  main {
-    height: calc(100dvh - 100px);
-    overflow: hidden;
-    @media screen and (min-width: 1500px) {
-      height: calc(100dvh - 120px);
-    }
-  }
-</style>
+</PageLayout>
