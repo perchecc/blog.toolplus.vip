@@ -7,14 +7,16 @@ import { cn } from 'astro-pure/utils'
 export const prerender = true
 export const partial = true
 
-const docsCollection = (await getBlogCollection('docs')) as CollectionEntry<'docs'>[]
-// Group docs by id first part (setup, integrations, advanced, etc.)
-const docsByCate = docsCollection.reduce((acc: { [key: string]: typeof docsCollection }, doc) => {
-  const id = doc.id.split('/')[0]
-  if (!acc[id]) acc[id] = [] as typeof docsCollection
-  acc[id].push(doc)
-  return acc
-}, {})
+// [临时禁用] docs 功能暂时下线
+// const docsCollection = (await getBlogCollection('docs')) as CollectionEntry<'docs'>[]
+// // Group docs by id first part (setup, integrations, advanced, etc.)
+// const docsByCate = docsCollection.reduce((acc: { [key: string]: typeof docsCollection }, doc) => {
+//   const id = doc.id.split('/')[0]
+//   if (!acc[id]) acc[id] = [] as typeof docsCollection
+//   acc[id].push(doc)
+//   return acc
+// }, {})
+const docsByCate: Record<string, any[]> = {}
 
 const docCategories = {
   setup: 'Setup',
@@ -38,7 +40,7 @@ const { title = true, class: className, ...props } = Astro.props
         <li>
           <h3 class='text-muted-foreground text-xs tracking-widest uppercase'>{title}</h3>
           <ul class='mt-2 flex flex-col'>
-            {docsByCate[id]
+            {(docsByCate[id] || [])
               .sort((a, b) => a.data.order - b.data.order)
               .map((doc) => (
                 <li class='docs-item flex relative ms-2 px-3 py-1 text-foreground/75 transition-all rounded-2xl'>
