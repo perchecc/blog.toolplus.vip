@@ -1,0 +1,27 @@
+---
+import { type CollectionEntry, render } from 'astro:content'
+
+import { getBlogCollection, sortMDByDate } from 'astro-pure/server'
+import ProcessLayout from '@/layouts/ProcessPost.astro'
+
+export const prerender = true
+
+export async function getStaticPaths() {
+  const posts = sortMDByDate(await getBlogCollection('process'))
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post }
+  }))
+}
+
+type Props = {
+  post: CollectionEntry<'process'>
+}
+
+const { post } = Astro.props
+const { Content, headings, remarkPluginFrontmatter } = await render(post)
+---
+
+<ProcessLayout {post} {headings} {remarkPluginFrontmatter}>
+  <Content />
+</ProcessLayout>

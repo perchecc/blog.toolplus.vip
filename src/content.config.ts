@@ -56,4 +56,21 @@ const docs = defineCollection({
     })
 })
 
-export const collections = { blog }
+// Define process collection (SOP)
+const process = defineCollection({
+  loader: glob({ base: './src/content/process', pattern: '**/*.{md,mdx}' }),
+  schema: () =>
+    z.object({
+      title: z.string().max(60),
+      description: z.string().max(160),
+      publishDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      tags: z.array(z.string()).default([]).transform(removeDupsAndLowerCase),
+      draft: z.boolean().default(false),
+      // SOP specific
+      order: z.number().default(999),
+      comment: z.boolean().default(true)
+    })
+})
+
+export const collections = { blog, process }

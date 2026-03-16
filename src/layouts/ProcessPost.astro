@@ -1,0 +1,57 @@
+---
+import type { MarkdownHeading } from 'astro'
+import type { CollectionEntry } from 'astro:content'
+
+import 'katex/dist/katex.min.css'
+
+import { MediumZoom } from 'astro-pure/advanced'
+import { Copyright, Hero, TOC } from 'astro-pure/components/pages'
+import config from 'virtual:config'
+import PageLayout from '@/layouts/ContentLayout.astro'
+import { Comment, PageInfo } from '@/components/waline'
+
+interface Props {
+  post: CollectionEntry<'process'>
+  headings: MarkdownHeading[]
+  remarkPluginFrontmatter: Record<string, unknown>
+}
+
+const {
+  post: { data },
+  headings,
+  remarkPluginFrontmatter
+} = Astro.props
+
+const {
+  description,
+  publishDate,
+  title,
+  updatedDate,
+  draft: isDraft,
+  comment: enableComment
+} = data
+
+const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString()
+---
+
+<PageLayout
+  meta={{ articleDate, description, title }}
+  back='/process'
+>
+  {!!headings.length && <TOC {headings} slot='sidebar' />}
+
+  <Hero {data} {remarkPluginFrontmatter} slot='header'>
+    <Fragment slot='description'>
+      {!isDraft && enableComment && <PageInfo comment class='mt-1' />}
+    </Fragment>
+  </Hero>
+
+  <slot />
+
+  <Fragment slot='bottom'>
+    <Copyright {data} />
+    {!isDraft && enableComment && <Comment class='mt-3 sm:mt-6' />}
+  </Fragment>
+</PageLayout>
+
+{config.integ.mediumZoom.enable && <MediumZoom />}
