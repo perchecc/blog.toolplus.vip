@@ -1,5 +1,4 @@
 import { rehypeHeadingIds } from '@astrojs/markdown-remark'
-import vercel from '@astrojs/vercel'
 import AstroPureIntegration from 'astro-pure'
 import { defineConfig, fontProviders } from 'astro/config'
 import rehypeKatex from 'rehype-katex'
@@ -34,12 +33,8 @@ export default defineConfig({
   server: { host: true },
 
   // [Adapter]
-  // https://docs.astro.build/en/guides/deploy/
-  adapter: vercel(),
-  output: 'server',
-  // Local (standalone)
-  // adapter: node({ mode: 'standalone' }),
-  // output: 'server',
+  // Static output for EdgeOne Pages
+  output: 'static',
 
   // [Assets]
   image: {
