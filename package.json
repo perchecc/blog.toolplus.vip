@@ -21,17 +21,19 @@
     "cache:avatars": "tsx preset/scripts/cacheAvatars.ts"
   },
   "dependencies": {
+    "@unocss/astro": "66.5.10",
     "@astrojs/check": "^0.9.6",
     "@astrojs/rss": "^4.0.14",
     "@astrojs/vercel": "^9.0.2",
     "@waline/client": "^3.8.0",
-    "astro": "^5.16.6",
+    "astro": "5.16.6",
     "astro-pure": "1.4.0",
     "katex": "^0.16.27",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
     "sharp": "^0.34.5",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "unocss": "66.5.10"
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",

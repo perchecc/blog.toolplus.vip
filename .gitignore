@@ -26,3 +26,12 @@ dev-dist/
 .pnp.*
 
 .vercel/*
+
+# Typora drafts: published by publish-blog.cmd, never committed directly.
+content-inbox/*
+!content-inbox/待发布/
+content-inbox/待发布/*
+!content-inbox/待发布/.gitkeep
+!content-inbox/已发布/
+content-inbox/已发布/*
+!content-inbox/已发布/.gitkeep
